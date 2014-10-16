@@ -6,7 +6,7 @@ module OmniAuth
       DEFAULT_SCOPE = "read"
 
       option :name, 'positionly'
-      option :authorize_options, [:scope, :account_domain]
+      option :authorize_options, [:scope, :account_fingerprint]
 
       option :client_options, {
         :site          => 'https://api.positionly.com',
@@ -16,7 +16,7 @@ module OmniAuth
 
       def authorize_params
         super.tap do |params|
-          %w(scope account_domain).each do |k|
+          %w(scope account_fingerprint).each do |k|
             params[k.to_sym] = request.params[k] unless [nil, ''].include?(request.params[k])
           end
           params[:scope] ||= DEFAULT_SCOPE
